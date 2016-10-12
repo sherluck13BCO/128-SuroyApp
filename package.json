@@ -1,0 +1,11 @@
+{
+  "name"         : "SuroyUP",
+  "version"      : "0.0.0",
+  "description"  : "Simple UP Suroy application.",
+  "main"         : "SuroyUP.js",
+  "author"       : "Justine",
+  "dependencies" : {
+    "express"    : "*",
+    "pg"         : "*"
+  }
+}
