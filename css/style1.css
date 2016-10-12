@@ -8,7 +8,7 @@ html {
 
 body {
   max-width: 1360px; 
-  margin: 20px auto;
+  margin:10px auto;
   padding: 0 40px;
   overflow-x: hidden;
 }
@@ -19,14 +19,12 @@ body {
   color: rgba(229, 229, 229, 0.7);
 }
 
-<<<<<<< HEAD
-
-=======
->>>>>>> origin/master
 div{
 /*  position: relative;*/
   box-sizing: border-box;
 }
+
+
 
 img, footer {
   position: relative;
@@ -91,6 +89,10 @@ li.active a, a:hover, a:active {
   color: #e5e5e5;
 }
 
+section{
+  background: rgba(70, 151, 70, 1);
+}
+
 .centered {
   position: absolute;
   top: 50%;
@@ -109,16 +111,13 @@ li.active a, a:hover, a:active {
 
 .distribution-map {
   position: relative;
-  width: 100%;
-  padding: 20px;
-  box-sizing: border-box;
-  margin: 0 auto;
+  height: 100%;
+  margin: auto;
 }
 .distribution-map > img {
-  width: 100%;
   position: relative;
-  margin: 0;
-  padding: 0;
+  height: 100%;
+  margin: auto;
 }
 .distribution-map .map-point {
   cursor: pointer;
@@ -148,9 +147,9 @@ li.active a, a:hover, a:active {
   transition: opacity 0.25s ease-in-out;
   width: 100%;
   height: 100%;
-  left: 50%;
-  -webkit-transform: translateX(-50%);
-  transform: translateX(-50%);
+  left: 100%;
+  -webkit-transform: translateX(50%);
+  transform: translateX(0%);
   overflow: overlay;
 }
 .distribution-map .map-point:active, .distribution-map .map-point:focus {
@@ -165,7 +164,7 @@ li.active a, a:hover, a:active {
   -webkit-transition: opacity 0.25s ease-in-out, width 0.25s ease-in-out, height 0.25s ease-in-out;
   transition: opacity 0.25s ease-in-out, width 0.25s ease-in-out, height 0.25s ease-in-out;
 }
-.distribution-map .map-point:active .content, .distribution-map .map-point:focus .content {
+.distribution-map .map-point:active .content{
   filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
   opacity: 1;
   -moz-transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
@@ -176,7 +175,25 @@ li.active a, a:hover, a:active {
   transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
   overflow: hidden;
 }
-.distribution-map .map-point:active .content a:hover, .distribution-map .map-point:active .content a:active, .distribution-map .map-point:focus .content a:hover, .distribution-map .map-point:focus .content a:active {
+
+.distribution-map .map-point:focus .content {
+  filter: progid:DXImageTransform.Microsoft.Alpha(enabled=false);
+  opacity: 1;
+  -moz-transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
+  -o-transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s ease-in-out, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
+  -webkit-transition-delay: 0.25s, 0s, 0s;
+  -webkit-transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
+  transition: opacity 0.25s ease-in-out 0.25s, height 0.25s ease-in-out, overflow 0.25s ease-in-out;
+  overflow: hidden;
+}
+
+
+.distribution-map .map-point:active .content a:hover, .distribution-map .map-point:active .content a:active{
+  color: #afe1fa;
+}
+
+.distribution-map .map-point:focus .content a:hover, .distribution-map .map-point:focus .content a:active {
   color: #afe1fa;
 }
 
