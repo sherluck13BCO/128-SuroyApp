@@ -2,7 +2,6 @@
 
 Template 2080 Minimax
 
-http://www.tooplate.com/view/2080-minimax
 
 */
 
@@ -475,12 +474,12 @@ footer span {
 }*/
 
 /* copyright section */
-/*.copyright {
+.copyright {
   padding-top: 20px;
   padding-bottom: 20px;
   text-align: center;
 }
-*/
+
 /* scrolltop section */
 .go-top 
   {
