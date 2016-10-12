@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<style type="text/css">
+        #imagediv {
+            margin: 0 auto;
+            height: 400px;
+            width: 400px;
+            overflow: hidden;
+        }
+ 
+        img {
+            position: relative;
+            left: 50%;
+            top: 50%;
+        }
+   </style>
+</head>
+ 
+<body>
+ <form id="form1" runat="server">
+  <input type="button" value="-" onclick="zoom(0.9)" />
+        <input type="button" value="+" onclick="zoom(1.1)" />
+        <div id="imagediv">
+            <img id="pic" src="map.png" />
+       </div>
+       <script type="text/javascript" language="javascript">
+            window.onload = function () { zoom(1) }
+            function zoom(zm) {
+                img = document.getElementById("pic")
+                wid = img.width
+                ht = img.height
+                img.style.width = (wid * zm) + "px"
+                img.style.height = (ht * zm) + "px"
+                img.style.marginLeft = -(img.width / 2) + "px";
+                img.style.marginTop = -(img.height / 2) + "px";
+            }
+        </script>
+   </form>
+<body>
+
+  </html>
