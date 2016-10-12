@@ -8,8 +8,6 @@ html {
 
 body {
   max-width: 1360px; 
-  min-width: 1000px;
-  min-height: 700px;
   margin: 20px auto;
   padding: 0 40px;
   overflow-x: hidden;
@@ -21,10 +19,17 @@ body {
   color: rgba(229, 229, 229, 0.7);
 }
 
-div, img, footer {
+
+div{
+/*  position: relative;*/
+  box-sizing: border-box;
+}
+
+img, footer {
   position: relative;
   box-sizing: border-box;
 }
+
 
 h1, h2, h3, h4, h5, h6 {
   margin-bottom: 20px;
