@@ -21,7 +21,12 @@ body {
   color: rgba(229, 229, 229, 0.7);
 }
 
-div, img, footer {
+div{
+/*  position: relative;*/
+  box-sizing: border-box;
+}
+
+img, footer {
   position: relative;
   box-sizing: border-box;
 }
