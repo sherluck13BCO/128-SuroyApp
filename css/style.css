@@ -445,7 +445,8 @@ footer span {
   font-weight: bold;
   padding-left: 20px;
 }
-/*.social-icons {
+
+.social-icons {
   padding: 0;
   margin: 0;
 }
@@ -471,7 +472,7 @@ footer span {
 }
 .social-icons li a:hover {
   background: #f2af00;
-}*/
+}
 
 /* copyright section */
 .copyright {
