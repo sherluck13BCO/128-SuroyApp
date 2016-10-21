@@ -5,19 +5,21 @@
     <title>UPC INTERACTIVE MAP</title>
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/panzoom.js"></script> 
-    <script src="js/popup.js"></script> 
-    <link rel="stylesheet" href="css/map/reset.css">
+    <script src="js/popup.js"></script>
+    <link rel="stylesheet" href="css/popup/floorplan.css">
     <link rel="stylesheet" href="css/popup/style.css">
-    <link rel="stylesheet" href="css/map/style1.css">
+    <link rel="stylesheet" href="css/map/reset.css">
+    <link rel="stylesheet" href="css/map/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/sidebar/component.css" /> 
   </head>
 
   <body>
     <section id="st-container" style="height:600px;" ng-app="">
-      <div id="panzoom" class="distribution-map" style="width:960px; height:600px"> 
+      <div class="containerz">
+      <div id="panzoom" class="distribution-map" style="width:964px; height:600px"> 
        <img id = "image1" src="images/map.png" width="1000" height="625">
-          <div class="cd-popup-trigger">
+          <div class="cd-popup-trigger" style="min-height: 50px; min-width: 50px">
             <button class="map-point" style="top:7%;left:32.65%; height:1px, width:1px" data-effect="st-effect-1" ng-click="Title='UNDERGRADUATE BUILDING'">
               <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
             </button>
@@ -106,18 +108,47 @@
               <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
             </button>
           </div>
-    
+          </div>
       </div>
 
-      <div class="cd-popup" >
+      <div class="cd-popup" style="position: fixed;left: 0;top: 0;">
         <div class="cd-popup-container">
           <h2 ng-bind="Title"></h2>
           <p>Description:</p>
           <p>lorem ipsum brocolli bacon chewie bacca luke sky walker darth vader alde rann milee nium falcon</p>
+          <li style="position: fixed; bottom:10%; ">
+            <button id = "flrpln" style="width: 100%">Floor Plans</button>
+            <button style="width: 100%" href="https://www.youtube.com/watch?v=CcNo07Xp8aQ">Videos</button>
+            <button style="width: 100%">Photos</button>
+          </li>
           <a href="#0" class="cd-popup-close img-replace"></a>
         </div> <!-- cd-popup-container -->
       </div>
+
+      <div id="myModal" class="modal">
+
+      <!-- Modal content -->
+      <div class="modal-content">
+        <div class="modal-header">
+          <span class="close">×</span>
+          <h2>Floor Plan</h2>
+        </div>
+
+        <div class="modal-body">
+          <!-- 
+              Insert floorplan here
+           -->
+        </div>
+
+        <div class="modal-footer">
+        
+        </div>
+      </div>
+
+      </div>
+
     </section>
+    
 
     <div class="margin-div">
       <button class="button button5" onclick=newDoc()>H O M E</button>
@@ -125,6 +156,32 @@
     </div>
 
     <script>
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("flrpln");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function() {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function() {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
         function newDoc() {
             window.location.assign("/")
         }
@@ -135,7 +192,7 @@
           });
 
           var $section = $('#st-container');
-          var $panzoom = $section.find('.distribution-map').panzoom({
+          var $panzoom = $section.find('.containerz').panzoom({
              $reset: $(".button1"),
           });
           $panzoom.parent().on('mousewheel.focal', function( e ) {
@@ -156,7 +213,9 @@
               e.originalEvent();
           });
 
-        })();</script>
+          })();
+
+      </script>
     <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
   </body>
