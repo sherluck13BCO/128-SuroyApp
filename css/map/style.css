@@ -25,9 +25,9 @@ html {
 }
 
 .button1 {
-    background-color: #4CAF50; /* Green */
+    background-color: white;/*#4CAF50;  Green */
     border: none;
-    color: white;
+    color: black;/*white;*/
 }
 
 .button5 {
@@ -46,10 +46,6 @@ html {
 }
 
 body {
-  margin-top: 10px;
-  margin-right: 10px;
-  margin-bottom: 10px;
-  margin-left: 10px;
   overflow-x: hidden;
 }
 
@@ -137,10 +133,16 @@ li.active a, a:hover, a:active {
 }
 
 section{
+  height: 100%;
+  width: 100%;
   background: rgba(70, 151, 70, 1);
 }
 
 .margin-div{
+  position: absolute;
+  bottom: 2%;
+  left: 1%;
+
   padding-top:5px;
 }
 

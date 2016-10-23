@@ -5,20 +5,22 @@
     <title>UPC INTERACTIVE MAP</title>
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/panzoom.js"></script> 
-    <script src="js/popup.js"></script>
+    <script src="js/popup.js"></script> 
+    <link rel="stylesheet" href="css/map/reset.css">
+    <link rel="stylesheet" href="css/popup/style.css">
+    <link rel="stylesheet" href="css/map/style.css">
     <link rel="stylesheet" href="css/popup/floorplan.css">
     <link rel="stylesheet" href="css/popup/style.css">
-    <link rel="stylesheet" href="css/map/reset.css">
-    <link rel="stylesheet" href="css/map/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/sidebar/component.css" /> 
   </head>
 
   <body>
-    <section id="st-container" style="height:600px;" ng-app="">
+    <section id="st-container" ng-app="">
       <div class="containerz">
-      <div id="panzoom" class="distribution-map" style="width:964px; height:600px"> 
-       <img id = "image1" src="images/map.png" width="1000" height="625">
+      <div id="panzoom" class="distribution-map" style="width:964px; height:100%"> 
+
+       <img id = "image1" src="images/map.png" width="1000" height=>
           <div class="cd-popup-trigger">
             <button class="map-point" style="top:7%;left:32.65%; height:1px, width:1px" data-effect="st-effect-1" ng-click="Title='UNDERGRADUATE BUILDING'; description='The Undergraduate Building serves as the main building of the Arts and Humanities Cluster and Sciences Cluster. It is located at the western side of the UP Cebu Lahug Campus, near the basketball and volleyball courts.'" >
               <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
@@ -109,7 +111,12 @@
               <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
             </button>
           </div>
-          </div>
+      </div>
+      </div>
+
+      <div class="margin-div"  >
+        <button class="button button5" onclick=newDoc()>H O M E</button>
+        <button class="button button1">R E S E T</button>
       </div>
 
       <div class="cd-popup" style="position: fixed;left: 0;top: 0;">
@@ -126,10 +133,10 @@
         </div> <!-- cd-popup-container -->
       </div>
 
-      <div id="myModal" class="modal">
+      <div id="myModal" class="modal" >
 
       <!-- Modal content -->
-      <div class="modal-content">
+      <div class="modal-content" style="height:50%">
         <div class="modal-header">
           <span class="close">×</span>
           <h2>Floor Plan</h2>
@@ -142,19 +149,13 @@
         </div>
 
         <div class="modal-footer">
-        
+
         </div>
       </div>
 
       </div>
 
     </section>
-    
-
-    <div class="margin-div">
-      <button class="button button5" onclick=newDoc()>H O M E</button>
-      <button class="button button1">R E S E T</button>
-    </div>
 
     <script>
 
@@ -183,12 +184,21 @@
                 modal.style.display = "none";
             }
         }
+
         function newDoc() {
             window.location.assign("/")
         }
 
         (function() {
           $('.distribution-map button').on('mousedown touchstart', function( e ) {
+              e.stopImmediatePropagation();
+          });
+
+          $('.button button5').on('mousedown touchstart', function( e ) {
+              e.stopImmediatePropagation();
+          });
+
+          $('.button button1').on('mousedown touchstart', function( e ) {
               e.stopImmediatePropagation();
           });
 
