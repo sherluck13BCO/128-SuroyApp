@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<title>fp.CSS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/floorplans_proto.css">
+<style>
+.floorplanSlideshow {display:none}
+</style>
+<body>
+
+<div class="fp-content fp-display-container" style="max-width:1200px">
+  <img class="floorplanSlideshow" src="images/a.png" style="width:100%">
+  <img class="floorplanSlideshow" src="images/b.png" style="width:100%">
+  <img class="floorplanSlideshow" src="images/c.png" style="width:100%">
+  <img class="floorplanSlideshow" src="images/AS DCS 3RD FLR.png" style="width:100%">
+</div>
+
+<div class="fp-center">
+  <div class="fp-section">
+    <button class="fp-btn" onclick="plusDivs(-1)">❮</button>
+    <button class="fp-btn" onclick="plusDivs(1)">❯</button>
+  </div>
+  <button class="fp-btn show" onclick="currentDiv(1)">1</button>
+  <button class="fp-btn show" onclick="currentDiv(2)">2</button>
+  <button class="fp-btn show" onclick="currentDiv(3)">3</button>
+  <button class="fp-btn show" onclick="currentDiv(4)">4</button>
+
+</div>
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("floorplanSlideshow");
+  var dots = document.getElementsByClassName("show");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" fp-green", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " fp-green";
+}
+</script>
+
+</body>
+</html>
+
