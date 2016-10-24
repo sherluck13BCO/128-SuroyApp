@@ -6,6 +6,8 @@
     <script src="js/jquery-1.11.3.min.js"></script>
     <script src="js/panzoom.js"></script> 
     <script src="js/popup.js"></script> 
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/floorplans_proto.css">
     <link rel="stylesheet" href="css/map/reset.css">
     <link rel="stylesheet" href="css/popup/style.css">
     <link rel="stylesheet" href="css/map/style.css">
@@ -13,7 +15,11 @@
     <link rel="stylesheet" href="css/popup/style.css">
     <link rel="stylesheet" type="text/css" href="css/sidebar/demo.css" />
     <link rel="stylesheet" type="text/css" href="css/sidebar/component.css" /> 
+    <style>
+    .floorplanSlideshow {display:none}
+    </style>
   </head>
+
 
   <body>
     <section id="st-container" ng-app="">
@@ -136,7 +142,7 @@
       <div id="myModal" class="modal" >
 
       <!-- Modal content -->
-      <div class="modal-content" style="height:50%">
+      <div class="modal-content" style="height:85%">
         <div class="modal-header">
           <span class="close">×</span>
           <h2>Floor Plan</h2>
@@ -144,8 +150,29 @@
 
         <div class="modal-body">
           <!-- 
-              Insert floorplan here
+              Insert floorplan here       
            -->
+
+           <div class="fp-content fp-display-container" style="max-width:1200px">
+            <img class="floorplanSlideshow" src="images/a.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/b.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/c.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/AS DCS 3RD FLR.png" style="width:100%">
+          </div>
+
+          <div class="fp-center">
+            <div class="fp-section">
+              <button class="fp-btn" onclick="plusDivs(-1)">❮</button>
+              <button class="fp-btn" onclick="plusDivs(1)">❯</button>
+            </div>
+            <button class="fp-btn show" onclick="currentDiv(1)">1</button>
+            <button class="fp-btn show" onclick="currentDiv(2)">2</button>
+            <button class="fp-btn show" onclick="currentDiv(3)">3</button>
+            <button class="fp-btn show" onclick="currentDiv(4)">4</button>
+
+          </div>
+
+
         </div>
 
         <div class="modal-footer">
@@ -226,6 +253,35 @@
 
           })();
 
+      </script>
+
+      <script>
+      var slideIndex = 1;
+      showDivs(slideIndex);
+
+      function plusDivs(n) {
+        showDivs(slideIndex += n);
+      }
+
+      function currentDiv(n) {
+        showDivs(slideIndex = n);
+      }
+
+      function showDivs(n) {
+        var i;
+        var x = document.getElementsByClassName("floorplanSlideshow");
+        var dots = document.getElementsByClassName("show");
+        if (n > x.length) {slideIndex = 1}
+        if (n < 1) {slideIndex = x.length}
+        for (i = 0; i < x.length; i++) {
+           x[i].style.display = "none";
+        }
+        for (i = 0; i < dots.length; i++) {
+           dots[i].className = dots[i].className.replace(" fp-green", "");
+        }
+        x[slideIndex-1].style.display = "block";
+        dots[slideIndex-1].className += " fp-green";
+      }
       </script>
     <script src='http://ajax.googleapis.com/ajax/libs/angularjs/1.3.2/angular.min.js'></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
