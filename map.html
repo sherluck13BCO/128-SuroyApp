@@ -29,9 +29,9 @@
        <img id = "image1" src="images/map.png" width="1000" height=>
           <div class="cd-popup-trigger" >
             <button class="map-point" style="top:7%;left:32.65%; height:1px, width:1px" data-effect="st-effect-1" 
-            ng-click="photo = 'images/floorplans/L1.png';
+            ng-click="photo = 'images/floorplans/NSMD/NSMD 1ST FLR.png';
             Title='UNDERGRADUATE BUILDING';
-            description='The Undergraduate Building serves as the main building of the Arts and Humanities Cluster and Sciences Cluster. It is located at the western side of the UP Cebu Lahug Campus, near the basketball and volleyball courts.'" >
+            description='The Undergraduate Building serves as the main building of the Arts and Humanities Cluster and Sciences Cluster. It is located at the western side of the UP Cebu Lahug Campus, near the basketball and volleyball courts. Also known as the NSMD Building.'" >
             <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
             </button>
           </div>
@@ -50,7 +50,7 @@
 
           <div class="cd-popup-trigger">
             <button class="map-point" style="top:35%;left:26.43%; height:1px, width:1px" data-effect="st-effect-1" 
-            ng-click="photo = 'images/floorplans/L1.png';; 
+            ng-click="photo = 'images/floorplans/Management/MANAGEMENT BLDG 1.png'; 
             Title='MANAGEMENT BUILDING';
             description='The Management Building serves as the main building for Business Management Cluster. It is located at the western side of the UP Cebu Lahug Campus, beside the University Clinic.'">
               <img id = "image1" src="images/pin.png" width="50" height="50" style="bottom:10px;right:25px">
@@ -153,7 +153,7 @@
       <div id="myModal" class="modal">
 
       <!-- Modal content -->
-      <div class="modal-content" style="height:90%">
+      <div class="modal-content" style="height:95%">
         <div class="modal-header">
           <span class="close">×</span>
           <h2>Floor Plan</h2>
@@ -179,18 +179,16 @@
               <div class="fp-content fp-display-container" style="max-width:1200px" >
               <img src={{photo}} style="width:100%" >
             </div>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/L1.png'">L1</button>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/R1.png'">R1</button>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/L2.png'">L2</button>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/L1.png'">R2</button>
+              <button class="fp-btn show" ng-click="photo = 'images/floorplans/NSMD/NSMD 1ST FLR.png'">F1</button>
+              <button class="fp-btn show" ng-click="photo = 'images/floorplans/NSMD/NSMD 2ND FLR.png'">F2</button>
             </div>
             <!-- MANAGEMENT BUILDING -->
             <div ng-if="Title=='MANAGEMENT BUILDING'">
               <div class="fp-content fp-display-container" style="max-width:1200px" >
               <img src={{photo}} style="width:100%" >
             </div>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/L1.png'">B1</button>
-              <button class="fp-btn show" ng-click="photo = 'images/floorplans/R1.png'">B2</button>
+              <button class="fp-btn show" ng-click="photo = 'images/floorplans/Management/MANAGEMENT BLDG 1.png'">B1</button>
+              <button class="fp-btn show" ng-click="photo = 'images/floorplans/Management/MANAGEMENT BLDG 2.png'">B2</button>
             </div>
             <!-- ADMINISTRATION BUILDING -->
             <div ng-if="Title=='ADMINISTRATION BUILDING'">
