@@ -13,7 +13,7 @@ system.activate("multitouch")
 local isDevice = (system.getInfo("environment") == "device")
 
 
-print("bayot")
+
 
 local scene = composer.newScene()
 

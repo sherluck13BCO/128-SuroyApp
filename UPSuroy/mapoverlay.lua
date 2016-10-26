@@ -14,6 +14,9 @@ local touchListener, nextImage, prevImage, cancelMove, initImage, jumpToImage
 local background
 local imageNumberText, imageNumberTextShadow
 local backbutton
+local navBar
+local pins
+local index
 --widget.theme = myMap.theme
 
 local function goBack( event )
@@ -23,7 +26,17 @@ local function goBack( event )
 	end
 	return true
 end
-
+local function showPanel( event )
+    	if event.phase == "ended" then
+    		sharingPanel:show()
+    	end
+    	return true
+    end
+local function setSlideNumber()
+		
+		navBar:setLabel(pins[index].label)
+		--imageNumberTextShadow.text = imgNum .. " of " .. #images
+	end
 --function new( imageSet, slideBackground, top, bottom )	
 function scene:create( event )
 	local sceneGroup = self.view
@@ -36,8 +49,8 @@ function scene:create( event )
 	if event.params and event.params.start then
 		start = event.params.start
 	end
-	local pins = event.params.pinDetails
-	local index = event.params.index
+	pins = event.params.pinDetails
+	 index = event.params.index
 	assert(pins, "Error: pins list not set")
 
 	viewableScreenW = display.contentWidth
@@ -53,12 +66,7 @@ function scene:create( event )
    -- sharingPanel = widget.newSharingPanel({
     --	})
 
-    local function showPanel( event )
-    	if event.phase == "ended" then
-    		sharingPanel:show()
-    	end
-    	return true
-    end
+    
 
 	local leftButton = {
 		onEvent = goBack,
@@ -76,7 +84,7 @@ function scene:create( event )
 		overFile = "images/sendToButtonOver.png",
 	}
 	local button =widget.newButton()
-    local navBar = widget.newNavigationBar({
+    navBar = widget.newNavigationBar({
         title = "VR MAP",
         backgroundColor = { 138/255, 13/255, 39/255 },
         titleColor = {1, 1, 1},
@@ -114,11 +122,7 @@ p.y = h*.5 + 20 + 50
 			
 	
 	
-	function setSlideNumber()
-		print("setSlideNumber", imgNum .. " of " .. #images)
-		navBar:setLabel(pins[imgNum].label)
-		--imageNumberTextShadow.text = imgNum .. " of " .. #images
-	end
+	
 	
 
 
