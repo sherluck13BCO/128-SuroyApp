@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="css/floorplans_proto.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+  .floorplanSlideshow {display:none}
+  </style>
+
+</head>
+<body>
+
+<div class="container">
+  <h2>Modal Example</h2>
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal">
+    
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Floor Plans 1</h4>
+        </div>
+        <div class="modal-body">
+          <div class="fp-content fp-display-container" style="max-width:1200px">
+            <img class="floorplanSlideshow" src="images/floorplans/a.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/floorplans/b.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/floorplans/c.png" style="width:100%">
+            <img class="floorplanSlideshow" src="images/floorplans/AS DCS 3RD FLR.png" style="width:100%">
+          </div>
+
+          <div class="fp-center">
+            <div class="fp-section">
+              <button class="fp-btn" onclick="plusDivs(-1)">❮</button>
+              <button class="fp-btn" onclick="plusDivs(1)">❯</button>
+               <button class="fp-btn show" onclick="currentDiv(1)">1</button>
+              <button class="fp-btn show" onclick="currentDiv(2)">2</button>
+              <button class="fp-btn show" onclick="currentDiv(3)">3</button>
+              <button class="fp-btn show" onclick="currentDiv(4)">4</button>
+            </div>
+             
+            </div>
+        </div>
+        <div class="modal-footer">
+        </div>
+      </div>
+  </div>
+  
+</div>
+
+
+<script>
+var slideIndex = 1;
+showDivs(slideIndex);
+
+function plusDivs(n) {
+  showDivs(slideIndex += n);
+}
+
+function currentDiv(n) {
+  showDivs(slideIndex = n);
+}
+
+function showDivs(n) {
+  var i;
+  var x = document.getElementsByClassName("floorplanSlideshow");
+  var dots = document.getElementsByClassName("show");
+  if (n > x.length) {slideIndex = 1}
+  if (n < 1) {slideIndex = x.length}
+  for (i = 0; i < x.length; i++) {
+     x[i].style.display = "none";
+  }
+  for (i = 0; i < dots.length; i++) {
+     dots[i].className = dots[i].className.replace(" fp-green", "");
+  }
+  x[slideIndex-1].style.display = "block";
+  dots[slideIndex-1].className += " fp-green";
+}
+</script>
+</body>
+</html>
