@@ -1,10 +1,10 @@
 local mapData= require('mapdata')
 local myMap = require('mymap')
-local group = myMap.group
+local rect = myMap.group
 
 local composer = require("composer")
 
-
+local sceneGroup
 
 -- turn on multitouch
 system.activate("multitouch")
@@ -16,73 +16,47 @@ local isDevice = (system.getInfo("environment") == "device")
 print("bayot")
 
 local scene = composer.newScene()
-print("mana compose")
+
+
+function scene:create( event )
+	sceneGroup = self.view
+	initScale()
+	rect.dots = {}
+	rect:addEventListener("touch")
+	sceneGroup:insert(rect)
+
+
+
+end
+
+function scene:show(event)
+	local sceneGroup = self.view
+end
+function scene:hide(event)
+	local sceneGroup = self.view
+end
+function scene:destroy(event)
+	local sceneGroup = self.view
+	-- body
+end
+
+
+function initScale() 
+	 sy = display.contentHeight / myMap.h
+	rect:translate(display.contentCenterX, display.contentCenterY)
+	rect:scale(sy, sy)
+
+end
+
+function rectEndX()
+	return (rect.x + rect.contentWidth)
+end
+
+-- returns the distance between points a and b
 function lengthOf( a, b )
     local width, height = b.x-a.x, b.y-a.y
     return (width*width + height*height)^0.5
 end
-
--- returns the degrees between (0,0) and pt
--- note: 0 degrees is 'east'
-function angleOfPoint( pt )
-	local x, y = pt.x, pt.y
-	local radian = math.atan2(y,x)
-	local angle = radian*180/math.pi
-	if angle < 0 then angle = 360 + angle end
-	return angle
-end
-
--- returns the degrees between two points
--- note: 0 degrees is 'east'
-function angleBetweenPoints( a, b )
-	local x, y = b.x - a.x, b.y - a.y
-	return angleOfPoint( { x=x, y=y } )
-end
-
--- returns the smallest angle between the two angles
--- ie: the difference between the two angles via the shortest distance
-function smallestAngleDiff( target, source )
-	local a = target - source
-	
-	if (a > 180) then
-		a = a - 360
-	elseif (a < -180) then
-		a = a + 360
-	end
-	
-	return a
-end
-
--- rotates a point around the (0,0) point by degrees
--- returns new point object
-function rotatePoint( point, degrees )
-	local x, y = point.x, point.y
-	
-	local theta = math.rad( degrees )
-	
-	local pt = {
-		x = x * math.cos(theta) - y * math.sin(theta),
-		y = x * math.sin(theta) + y * math.cos(theta)
-	}
-
-	return pt
-end
-
--- rotates point around the centre by degrees
--- rounds the returned coordinates using math.round() if round == true
--- returns new coordinates object
-function rotateAboutPoint( point, centre, degrees, round )
-	local pt = { x=point.x - centre.x, y=point.y - centre.y }
-	pt = rotatePoint( pt, degrees )
-	pt.x, pt.y = pt.x + centre.x, pt.y + centre.y
-	if (round) then
-		pt.x = math.round(pt.x)
-		pt.y = math.round(pt.y)
-	end
-	return pt
-end
-
-
 
 -- calculates the average centre of a list of points
 local function calcAvgCentre( points )
@@ -102,24 +76,10 @@ local function updateTracking( centre, points )
 	for i=1, #points do
 		local point = points[i]
 		
-		point.prevAngle = point.angle
 		point.prevDistance = point.distance
 		
-		point.angle = angleBetweenPoints( centre, point )
 		point.distance = lengthOf( centre, point )
 	end
-end
-
--- calculates rotation amount based on the average change in tracking point rotation
-local function calcAverageRotation( points )
-	local total = 0
-	
-	for i=1, #points do
-		local point = points[i]
-		total = total + smallestAngleDiff( point.angle, point.prevAngle )
-	end
-	
-	return total / #points
 end
 
 -- calculates scaling amount based on the average change in tracking point distances
@@ -139,7 +99,7 @@ end
 -- creates an object to be moved
 function newTrackDot(e)
 	-- create a user interface object
-	local circle = display.newCircle( e.x, e.y, 15 )
+	local circle = display.newCircle( e.x, e.y, 50 )
 	
 	-- make it less imposing
 	circle.alpha = .5
@@ -213,81 +173,24 @@ function newTrackDot(e)
 	return circle
 end
 
-function scene:create( event )
-
-		--print("event",event.params.var1 .. event.params.var2 )
-
-
-
 
 -- spawning tracking dots
-
--- create display group to listen for new touches
--- group = display.newGroup()
-
--- populate display group with objects
-----------------------------------------------------
--- local x = display.contentCenterX
--- local y = display.contentCenterY
--- local rect = display.newImage(group, "512x320pxmap.jpg", x, y)
-
--- print('x = ', display.contentCenterX)
--- print('y = ', display.contentCenterY)
---local rect = display.newRect( group, 200, 200, 200, 100 )
---group:scale(5, 5)
-
--- local rect = display.newRect( group, 200, 200, 200, 100 )
--- rect:setFillColor(0,0,255)
--- 
--- rect = display.newRect( group, 300, 300, 200, 100 )
--- rect:setFillColor(0,255,0)
-
--- rect = display.newRect( group, 100, 400, 200, 100 )
--- rect:setFillColor(255,0,0)
-
 -- keep a list of the tracking dots
-group.dots = {}
+
 
 -- advanced multi-touch event listener
-
-
--- attach pinch zoom touch listener
-group.touch = touch
-
--- listen for touches starting on the touch object
-
-
-	print('atay')
-	-- attach pinch zoom touch listener
-	-- returns the distance between points a and b
-
-	-- creates an object to be moved
-
-
-end
-
--- function scene:enterScene( event )
-
--- end
-
--- function scene:exitScene( event )
-
--- end
-
--- function scene:destroyScene( event )
-
--- end
-
-function touch(self, e)
+function rect:touch(e)
 	-- get the object which received the touch event
 	local target = e.target
-	
-	-- get reference to self object
-	local rect = self
-	
+	--print("e.target", e.target)
+	--print(rect[1])
+	if(e.target.name == 1) then
+		--print("pins identified!")
+	end
+
 	-- handle began phase of the touch event life cycle...
 	if (e.phase == "began") then
-		print( e.phase, e.x, e.y )
+		--print( e.phase, e.x, e.y )
 		
 		-- create a tracking dot
 		local dot = newTrackDot(e)
@@ -305,7 +208,7 @@ function touch(self, e)
 		return true
 	elseif (e.parent == rect) then
 		if (e.phase == "moved") then
-			print( e.phase, e.x, e.y )
+		--	print( e.phase, e.x, e.y )
 			
 			-- declare working variables
 			local centre, scale, rotate = {}, 1, 0
@@ -318,46 +221,58 @@ function touch(self, e)
 			
 			-- if there is more than one tracking dot, calculate the rotation and scaling
 			if (#rect.dots > 1) then
-				-- calculate the average rotation of the tracking dots
-				rotate = calcAverageRotation( rect.dots )
-				
 				-- calculate the average scaling of the tracking dots
 				scale = calcAverageScaling( rect.dots )
 				
-				-- apply rotation to rect
-				rect.rotation = rect.rotation + rotate
-				
 				-- apply scaling to rect
-				rect.xScale, rect.yScale = rect.xScale * scale, rect.yScale * scale
-				myMap.xscale = rect.xScale
-				myMap.yscale = rect.yScale
-				--myMap.pinGroup.xScale, myMap.pinGroup.yScale = rect.xScale/scale, rect.yScale/scale
+				--rect.xScale, rect.yScale = rect.xScale * scale, rect.yScale * scale
 
+
+
+--Correct implementation of scale limit on pinch zoom
+			local xScale = rect.xScale * scale
+			local yScale = rect.yScale * scale
+			local ZOOMMAX = 1
+			local ZOOMMIN = 0.2
+
+			--set upper bound
+			xScale = math.min(ZOOMMAX, xScale)
+			yScale = math.min(ZOOMMAX, yScale)
+
+			--set lower bound
+			rect.xScale = math.max(ZOOMMIN, xScale)
+			rect.yScale = math.max(ZOOMMIN, yScale)
+			end
+----------------------------------------------------
+			
+			-- update the position of rect
+
+			panX = rect.x + (centre.x - rect.prevCentre.x)
+			panY = rect.y + (centre.y - rect.prevCentre.y)
+			edge = panX +rect.contentWidth
+			loweredge = panY + rect.contentHeight
+			--print(rect.x)
+			
+
+			local rBounds = rect.width*sy/2 + display.contentWidth
+			local lBounds = rect.width*sy/2
+			local topBounds = rect.height*sy/2
+			local lowerBounds = rect.height*sy/2 + display.contentHeight
+	
+			
+			if(rBounds <= edge and panX <= lBounds) then
+				
+					rect.x = panX
+			end
+			if(lowerBounds <= loweredge and panY <=topBounds) then
+					rect.y = panY
 			end
 			
-			-- declare working point for the rect location
-			local pt = {}
-			
-			-- translation relative to centre point move
-			pt.x = rect.x + (centre.x - rect.prevCentre.x)
-			pt.y = rect.y + (centre.y - rect.prevCentre.y)
-			
-			-- scale around the average centre of the pinch
-			-- (centre of the tracking dots, not the rect centre)
-			pt.x = centre.x + ((pt.x - centre.x) * scale)
-			pt.y = centre.y + ((pt.y - centre.y) * scale)
-			
-			-- rotate the rect centre around the pinch centre
-			-- (same rotation as the rect is rotated!)
-			pt = rotateAboutPoint( pt, centre, rotate, false )
-			
-			-- apply pinch translation, scaling and rotation to the rect centre
-			rect.x, rect.y = pt.x, pt.y
-			
+		--	checkLimits()
 			-- store the centre of all touch points
 			rect.prevCentre = centre
 		else -- "ended" and "cancelled" phases
-			print( e.phase, e.x, e.y )
+			--print( e.phase, e.x, e.y )
 			
 			-- remove the tracking dot from the list
 			if (isDevice or e.numTaps == 2) then
@@ -383,12 +298,14 @@ function touch(self, e)
 	-- if the target is not responsible for this touch event return false
 	return false
 end
-group:addEventListener("touch", group)
-scene:addEventListener( "create", scene )
--- scene:addEventListener( "enterScene", scene )
--- scene:addEventListener( "exitScene", scene )
--- scene:addEventListener( "destroyScene", scene )
 
+scene:addEventListener("create", scene)
+scene:addEventListener("show", scene)
+scene:addEventListener("hide", scene)
+scene:addEventListener("destroy", scene)
+
+--rect:addEventListener("touch")
+--sceneGroup:addEventListener("touch")
 return scene
 -- one more thing
 

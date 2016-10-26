@@ -11,11 +11,25 @@ function scene:create(event)
 
 	local bgGroup = display.newGroup()
 	--local mapGroup = display.newGroup()
-	-- menuGroup = display.newGroup()
+	menuGroup = display.newGroup()
 
 	local background = display.newImage(bgGroup, "bg.png", false)
 	background.x = display.contentCenterX
 	background.y = display.contentCenterY
+
+	local menubar = display.newImage(menuGroup, "menubar.png", false)
+	menubar.x = display.contentCenterX
+	menubar.y = 0
+
+
+	local copyrightbar = display.newImage(menuGroup, "copyrightbar.png", false)
+	copyrightbar.x = display.contentCenterX
+	copyrightbar.y = display.contentCenterY + ((display.contentCenterY)/2) + (((display.contentCenterY)/2))+30
+
+
+	menuUp = false
+	huhpressed = false
+
 	local menuButton = widget.newButton
 	{
 	defaultFile = "menubutton.png",
@@ -34,6 +48,7 @@ function scene:create(event)
 	}
 	huhButton.x = 280; huhButton.y = -5
 	sceneGroup:insert(bgGroup)
+	sceneGroup:insert(menuGroup)
 	sceneGroup:insert(menuButton)
 	sceneGroup:insert(huhButton)
 end
@@ -55,8 +70,6 @@ scene:addEventListener("destroy", scene)
 
 
 
-menuUp = false
-huhpressed = false
 function testfunc(event)
 	if event.phase =='began' then 
 		print("testfunc")
@@ -69,16 +82,23 @@ function menuPress( event )
 	end
 	if (menuUp == false) then
 		menubg = display.newImage("menu.png", false)
-		menubg.x = display.contentCenterX
-		menubg.y = display.contentCenterY+40
-		
-		vmButton = widget.newButton
+		menubg.x = menubg.width/2
+		menubg.y = -100000
+		abButton = widget.newButton
 		{
-			defaultFile = "Button_vm.png",
-			overFile = "Button_vmPressed.png",
-			onPress =  myMap.showScreen1
+			defaultFile = "Button_about.png",
+			overFile = "Button_aboutPressed.png",
+			--onPress = viewMap,
+			--onRelease = button1Release,
 		}
-		vmButton.x = display.contentCenterX; vmButton.y = 70
+		abButton.x = menubg.width/2; abButton.y = 102
+		-- vmButton = widget.newButton
+		-- {
+		-- 	defaultFile = "Button_vm.png",
+		-- 	overFile = "Button_vmPressed.png",
+		-- 	onPress =  myMap.showScreen1
+		-- }
+		-- vmButton.x = display.contentCenterX; vmButton.y = 70
 		
 		vtButton = widget.newButton
 
@@ -88,17 +108,7 @@ function menuPress( event )
 			--onPress = button1Press,
 			--onRelease = button1Release,
 		}
-		vtButton.x = display.contentCenterX; vtButton.y = vmButton.y + 80
-		
-		ctButton = widget.newButton
-		{
-			defaultFile = "Button_ct.png",
-			overFile = "Button_ctPressed.png",
-			--onPress = button1Press,
-			--onRelease = button1Release,
-		}
-		ctButton.x = display.contentCenterX; ctButton.y = vtButton.y + 80
-		
+		vtButton.x = menubg.width/2; vtButton.y = abButton.y + 110
 		infoButton = widget.newButton
 		{
 			defaultFile = "Button_info.png",
@@ -106,11 +116,28 @@ function menuPress( event )
 			--onPress = button1Press,
 			--onRelease = button1Release,
 		}
-		infoButton.x = display.contentCenterX; infoButton.y = ctButton.y + 85
+		infoButton.x = menubg.width/2; infoButton.y = vtButton.y + 110
+		helpButton = widget.newButton
+		{
+			defaultFile = "Button_help.png",
+			overFile = "Button_helpPressed.png",
+			--onPress = button1Press,
+			--onRelease = button1Release,
+		}
+		helpButton.x = menubg.width/2; helpButton.y = infoButton.y + 111
+		-- ctButton = widget.newButton
+		-- {
+		-- 	defaultFile = "Button_ct.png",
+		-- 	overFile = "Button_ctPressed.png",
+		-- 	--onPress = button1Press,
+		-- 	--onRelease = button1Release,
+		-- }
+		-- ctButton.x = display.contentCenterX; ctButton.y = vtButton.y + 80
+		
 		sceneGroup:insert(menubg)
-		sceneGroup:insert(vmButton)
+		sceneGroup:insert(abButton)
 		sceneGroup:insert(vtButton)
-		sceneGroup:insert(ctButton)
+		sceneGroup:insert(helpButton)
 		sceneGroup:insert(infoButton)
 		menuUp = true
 	else
@@ -118,8 +145,8 @@ function menuPress( event )
 		--background.x = display.contentCenterX
 		--background.y = display.contentCenterY
 		menubg:removeSelf()
-		vmButton:removeSelf()
-		ctButton:removeSelf()
+		abButton:removeSelf()
+		helpButton:removeSelf()
 		vtButton:removeSelf()
 		infoButton:removeSelf()
 		menuUp = false
