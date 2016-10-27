@@ -5,9 +5,10 @@ local composer = require("composer")
 local myMap = require("mymap")
 local sceneGroup
 local rect = myMap.group
-
-local scene = composer.newScene()
 system.activate("multitouch")
+local isDevice = (system.getInfo("environment") == "device")
+local scene = composer.newScene()
+
 function scene:create(event)
 	sceneGroup = self.view
 
@@ -71,6 +72,21 @@ function scene:destroy(event)
 end
 
 
+local abPress = function( event )
+	composer.gotoScene( "aboutScene", "slideLeft", 400)
+end
+
+local vtPress = function( event )
+	composer.gotoScene( "vtScene", "slideLeft", 400)
+end
+
+local infoPress = function( event )
+	composer.gotoScene( "infoScene", "slideLeft", 400)
+end
+
+local helpPress = function( event )
+	composer.gotoScene( "helpScene", "slideLeft", 400)
+end
 
 
 
@@ -92,7 +108,7 @@ function menuPress( event )
 		{
 			defaultFile = "Button_about.png",
 			overFile = "Button_aboutPressed.png",
-			--onPress = viewMap,
+			onPress = abPress,
 			--onRelease = button1Release,
 		}
 		abButton.x = menubg.width/2; abButton.y = 102
@@ -109,7 +125,7 @@ function menuPress( event )
 		{
 			defaultFile = "Button_vt.png",
 			overFile = "Button_vtPressed.png",
-			--onPress = button1Press,
+			onPress = vtPress,
 			--onRelease = button1Release,
 		}
 		vtButton.x = menubg.width/2; vtButton.y = abButton.y + 110
@@ -117,7 +133,7 @@ function menuPress( event )
 		{
 			defaultFile = "Button_info.png",
 			overFile = "Button_infoPressed.png",
-			--onPress = button1Press,
+			onPress = infoPress,
 			--onRelease = button1Release,
 		}
 		infoButton.x = menubg.width/2; infoButton.y = vtButton.y + 110
@@ -125,7 +141,7 @@ function menuPress( event )
 		{
 			defaultFile = "Button_help.png",
 			overFile = "Button_helpPressed.png",
-			--onPress = button1Press,
+			onPress = helpPress,
 			--onRelease = button1Release,
 		}
 		helpButton.x = menubg.width/2; helpButton.y = infoButton.y + 111
@@ -262,7 +278,7 @@ end
 -- creates an object to be moved
 function newTrackDot(e)
 	-- create a user interface object
-	local circle = display.newCircle( e.x, e.y, 50 )
+	local circle = display.newCircle( e.x, e.y, 30 )
 	
 	-- make it less imposing
 	circle.alpha = .5

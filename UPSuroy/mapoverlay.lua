@@ -17,12 +17,13 @@ local backbutton
 local navBar
 local pins
 local index
+local descPressed = 0
 --widget.theme = myMap.theme
 
 local function goBack( event )
 	print(event.phase)
 	if event.phase == "ended" then
-		composer.hideOverlay( "crossFade", 250 )
+		composer.hideOverlay( "fade", 250 )
 	end
 	return true
 end
@@ -56,8 +57,8 @@ function scene:create( event )
 	viewableScreenW = display.contentWidth
 	viewableScreenH = display.contentHeight - 120 -- status bar + top bar + tabBar
 		
-    local background = display.newRect(0,0,display.contentWidth, display.contentHeight)
-    background:setFillColor( 0.95, 0.95, 0.95 )
+    local background = display.newRect(0,0,display.contentWidth, display.contentHeight +30)
+    --background:setFillColor( 0.95, 0.95, 0.95 )
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
 
@@ -67,6 +68,30 @@ function scene:create( event )
     --	})
 
     
+    local descPress = function( event )
+    if descPressed == 0 then
+		 textbox = native.newTextBox(display.contentWidth/2, 70, display.contentWidth,100)
+		textbox.size = 16
+		textbox.text = pins[index].text
+		textbox.isEditable = false
+		sceneGroup:insert(textbox)
+		descPressed = 1
+	else
+		textbox:removeSelf()
+		descPressed = 0 
+	end
+	end 
+
+	local floorplanPress = function( event )
+		if(pins[index].hasFP == 1) then 
+			composer.showOverlay("picsoverlay", {time=250, effect="crossFade", params={FP= pins[index].FP}})
+			local fpimage = display.newImageRect("floorplans/NA.png",display.contentWidth*1.5, display.contentHeight*0.75) 
+		fpimage.x = display.contentWidth/2;fpimage.y = display.contentHeight/2 -55
+		--fpimage:addEventListener( "touch", onTouch )
+		sceneGroup:insert(fpimage)
+		end
+		
+	end
 
 	local leftButton = {
 		onEvent = goBack,
@@ -83,7 +108,7 @@ function scene:create( event )
 		defaultFile = "images/sendToButton.png",
 		overFile = "images/sendToButtonOver.png",
 	}
-	local button =widget.newButton()
+	--local button =widget.newButton()
     navBar = widget.newNavigationBar({
         title = "VR MAP",
         backgroundColor = { 138/255, 13/255, 39/255 },
@@ -92,6 +117,7 @@ function scene:create( event )
         leftButton = leftButton,
         rightButton = rightButton
     })
+    navBar.y = -40
     sceneGroup:insert(navBar)
 	setSlideNumber()
 	images = {}
@@ -108,14 +134,39 @@ function scene:create( event )
 			end		 
 		end
 		p.x = screenW*.5
-p.y = h*.5 + 20 + 50
+		p.y = h*.5 + 20 + 50
 		sceneGroup:insert(p)
 	    
 	
-	
-	local defaultString = "1 of " .. #images
-	
-	imgNum = 1
+		floorplanButton = widget.newButton
+		{
+			defaultFile = "Button_floorplan.png",
+			overFile = "Button_floorplanPressed.png",
+			onPress = floorplanPress,
+			--onRelease = button1Release,
+		}
+		floorplanButton.x = display.contentWidth/2; floorplanButton.y = 400
+		sceneGroup:insert(floorplanButton)
+		
+		videoButton = widget.newButton
+		{
+			defaultFile = "Button_videos.png",
+			overFile = "Button_videosPressed.png",
+			--onPress = vtPress,
+			--onRelease = button1Release,
+		}
+		videoButton.x = display.contentWidth/2; videoButton.y = 440
+		sceneGroup:insert(videoButton)
+		
+		descButton = widget.newButton
+		{
+			defaultFile = "Button_desc.png",
+			overFile = "Button_descPressed.png",
+			onPress = descPress,
+			--onRelease = button1Release,
+		}
+		descButton.x = display.contentWidth/2; descButton.y = 480
+		sceneGroup:insert(descButton)
 	
 	sceneGroup.x = 0
 	sceneGroup.y = top + display.screenOriginY

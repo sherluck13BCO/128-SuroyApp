@@ -14,15 +14,25 @@ local touchListener, nextImage, prevImage, cancelMove, initImage, jumpToImage
 local background
 local imageNumberText, imageNumberTextShadow
 local backbutton
+local navBar
 --widget.theme = myMap.theme
 
 local function goBack( event )
-	print(event.phase)
+	print("goBack", event.phase)
 	if event.phase == "ended" then
 		composer.hideOverlay( "crossFade", 250 )
 	end
 	return true
 end
+function showPanel( event )
+    	print("showPanel")
+    	if event.phase == "ended" then
+    		print("showPanel")
+    		sharingPanel:show()
+    	end
+    	return true
+end
+
 
 --function new( imageSet, slideBackground, top, bottom )	
 function scene:create( event )
@@ -36,8 +46,8 @@ function scene:create( event )
 	if event.params and event.params.start then
 		start = event.params.start
 	end
-	local pins = event.params.pinDetails
-	assert(pins, "Error: pins list not set")
+	local fp = event.params.FP
+	assert(fp, "Error: pins list not set")
 
 	viewableScreenW = display.contentWidth
 	viewableScreenH = display.contentHeight - 120 -- status bar + top bar + tabBar
@@ -52,12 +62,6 @@ function scene:create( event )
    -- sharingPanel = widget.newSharingPanel({
     --	})
 
-    local function showPanel( event )
-    	if event.phase == "ended" then
-    		sharingPanel:show()
-    	end
-    	return true
-    end
 
 	local leftButton = {
 		onEvent = goBack,
@@ -74,20 +78,21 @@ function scene:create( event )
 		defaultFile = "images/sendToButton.png",
 		overFile = "images/sendToButtonOver.png",
 	}
-	local button =widget.newButton()
-    local navBar = widget.newNavigationBar({
+
+    navBar = widget.newNavigationBar({
         title = "Photo Gallery",
         backgroundColor = { 138/255, 13/255, 39/255 },
         titleColor = {1, 1, 1},
         --font = myApp.fontBold,
         leftButton = leftButton,
-        rightButton = rightButton
+        rightButton = rightButton,
     })
     sceneGroup:insert(navBar)
 	
 	images = {}
-	for i = 1,#pins do
-		local p = display.newImage(pins[i].image)
+
+	for i = 1,#fp do
+		local p = display.newImage(fp[i])
 		local h = viewableScreenH-(top+bottom)
 		if p.width > viewableScreenW or p.height > h then
 			if p.width/viewableScreenW > p.height/h then 
@@ -180,7 +185,7 @@ function scene:create( event )
 	
 	function setSlideNumber()
 		print("setSlideNumber", imgNum .. " of " .. #images)
-		navBar:setLabel(pins[imgNum].label)
+		navBar:setLabel(imgNum.."of" .. #images)
 		--imageNumberTextShadow.text = imgNum .. " of " .. #images
 	end
 	
