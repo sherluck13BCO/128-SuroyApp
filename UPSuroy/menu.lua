@@ -11,7 +11,7 @@ local scene = composer.newScene()
 
 function scene:create(event)
 	sceneGroup = self.view
-
+	print("in menu")
 	local bgGroup = display.newGroup()
 	--local mapGroup = display.newGroup()
 	menuGroup = display.newGroup()
@@ -171,21 +171,22 @@ function menuPress( event )
 		infoButton:removeSelf()
 		menuUp = false
 	end
+	return true
 end
 
-function myMap.showScreen1()
-	print('before')
-	-- menubg:removeSelf()
-	-- 	vmButton:removeSelf()
-	-- 	ctButton:removeSelf()
-	-- 	vtButton:removeSelf()
-	-- 	infoButton:removeSelf()
-	-- 	background:removeSelf()
-	composer.removeHidden()
- 	composer.gotoScene('mapscene',  {time=250, effect="crossFade"})
- 	print('done doing')
- return true
-end
+-- function myMap.showScreen1()
+-- 	print('before')
+-- 	-- menubg:removeSelf()
+-- 	-- 	vmButton:removeSelf()
+-- 	-- 	ctButton:removeSelf()
+-- 	-- 	vtButton:removeSelf()
+-- 	-- 	infoButton:removeSelf()
+-- 	-- 	background:removeSelf()
+-- 	composer.removeHidden()
+--  	composer.gotoScene('mapscene',  {time=250, effect="crossFade"})
+--  	print('done doing')
+--  return true
+-- end
 
 
 
@@ -202,6 +203,7 @@ local function fitImage( displayObject, fitWidth, fitHeight, enlarge )
 		return
 	end
 	displayObject:scale( scaleFactor, scaleFactor )
+
 end
 local pins
 
@@ -219,6 +221,7 @@ local huhPress = function( event )
 
 		huhpressed = false
 	end
+	return true
 end
 function initScale() 
 	 sy = display.contentHeight / myMap.h
@@ -279,7 +282,7 @@ end
 function newTrackDot(e)
 	-- create a user interface object
 	local circle = display.newCircle( e.x, e.y, 30 )
-	
+	print("new Trackdot")
 	-- make it less imposing
 	circle.alpha = .5
 	
@@ -452,7 +455,7 @@ function rect:touch(e)
 			rect.prevCentre = centre
 		else -- "ended" and "cancelled" phases
 			--print( e.phase, e.x, e.y )
-			
+			print("not moved", e.numTaps)
 			-- remove the tracking dot from the list
 			if (isDevice or e.numTaps == 2) then
 				-- get index of dot to be removed
@@ -463,7 +466,7 @@ function rect:touch(e)
 				
 				-- remove tracking dot from the screen
 				e.target:removeSelf()
-				
+				print("remove dot")
 				-- store the new centre of all touch points
 				rect.prevCentre = calcAvgCentre( rect.dots )
 				
@@ -471,7 +474,7 @@ function rect:touch(e)
 				updateTracking( rect.prevCentre, rect.dots )
 			end
 		end
-		return true
+		return false
 	end
 	
 	-- if the target is not responsible for this touch event return false

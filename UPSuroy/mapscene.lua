@@ -23,6 +23,7 @@ function scene:create( event )
 	initScale()
 	rect.dots = {}
 	rect:addEventListener("touch")
+	rect.id = "Map"
 	sceneGroup:insert(rect)
 
 
@@ -100,9 +101,10 @@ end
 function newTrackDot(e)
 	-- create a user interface object
 	local circle = display.newCircle( e.x, e.y, 50 )
-	
+	print("new Trackdot")
+	print(e.target.id)
 	-- make it less imposing
-	circle.alpha = .5
+	circle.alpha = .1
 	
 	-- keep reference to the rectangle
 	local rect = e.target
@@ -180,10 +182,13 @@ end
 
 -- advanced multi-touch event listener
 function rect:touch(e)
+
+
 	-- get the object which received the touch event
 	local target = e.target
 	--print("e.target", e.target)
 	--print(rect[1])
+	print("map id", target.id)
 	if(e.target.name == 1) then
 		--print("pins identified!")
 	end
@@ -209,7 +214,7 @@ function rect:touch(e)
 	elseif (e.parent == rect) then
 		if (e.phase == "moved") then
 		--	print( e.phase, e.x, e.y )
-			
+			print("moveeeeedd")
 			-- declare working variables
 			local centre, scale, rotate = {}, 1, 0
 			

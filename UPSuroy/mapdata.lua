@@ -235,8 +235,10 @@ function pinTap(event)
 	if event.phase == 'started' then
 		print("pinTap detected")
 	end
+	--myMap.group:removeEventListener("touch", touchListener)
 	composer.showOverlay("mapoverlay", {time=250, effect="crossFade", params={pinDetails = mapPins, index = p.index}})
 	--print("pintap")
+	return true;
 end
 rect = display.newImage(myMap.group, 'map.png',0,0)
 function pinHover(event)

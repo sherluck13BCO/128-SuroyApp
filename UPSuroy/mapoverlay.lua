@@ -61,7 +61,7 @@ function scene:create( event )
     --background:setFillColor( 0.95, 0.95, 0.95 )
     background.x = display.contentWidth / 2
     background.y = display.contentHeight / 2
-
+    background.id = 'background'
     sceneGroup:insert(background)
 
    -- sharingPanel = widget.newSharingPanel({
@@ -80,17 +80,20 @@ function scene:create( event )
 		textbox:removeSelf()
 		descPressed = 0 
 	end
+	return true;
 	end 
 
 	local floorplanPress = function( event )
+			--print("floorplansPress,",tostring(event.target))
 		if(pins[index].hasFP == 1) then 
 			composer.showOverlay("picsoverlay", {time=250, effect="crossFade", params={FP= pins[index].FP}})
 			local fpimage = display.newImageRect("floorplans/NA.png",display.contentWidth*1.5, display.contentHeight*0.75) 
 		fpimage.x = display.contentWidth/2;fpimage.y = display.contentHeight/2 -55
 		--fpimage:addEventListener( "touch", onTouch )
 		sceneGroup:insert(fpimage)
+
 		end
-		
+		return true;
 	end
 
 	local leftButton = {
@@ -172,7 +175,10 @@ function scene:create( event )
 	sceneGroup.y = top + display.screenOriginY
 			
 	
-	
+	function background:touchListener(self, event) 
+	print(event.id)
+	return true
+end
 	
 	
 
@@ -186,6 +192,7 @@ function scene:create( event )
 
 
 end
+
 
 function scene:show( event )
     local sceneGroup = self.view
@@ -210,6 +217,7 @@ end
 ---------------------------------------------------------------------------------
 -- END OF YOUR IMPLEMENTATION
 ---------------------------------------------------------------------------------
+
 
 scene:addEventListener( "create", scene )
 scene:addEventListener( "show", scene )

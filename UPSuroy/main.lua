@@ -11,6 +11,7 @@ math.randomseed(os.time())
 
 local welcome = display.newImage("welcome.png", display.contentCenterX, display.contentCenterY)
 local function closeSplash()
+	print("welcome")
     display.remove(welcome)
    welcome = nil
     composer.gotoScene("menu")
