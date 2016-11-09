@@ -82,11 +82,21 @@ function scene:create( event )
 	end
 	return true;
 	end 
-
+	local picsPress = function(event)
+		local options =
+{
+	    effect = "fade",
+	    time = 100,
+	    params = {
+	        pin = pins[index],
+	    }
+	}
+		composer.gotoScene("picsScene", options)
+	end
 	local floorplanPress = function( event )
 			--print("floorplansPress,",tostring(event.target))
 		if(pins[index].hasFP == 1) then 
-			composer.showOverlay("picsoverlay", {time=250, effect="crossFade", params={FP= pins[index].FP}})
+			composer.showOverlay("picsoverlay", {time=100, effect="crossFade", params={FP= pins[index].FP}})
 			local fpimage = display.newImageRect("floorplans/NA.png",display.contentWidth*1.5, display.contentHeight*0.75) 
 		fpimage.x = display.contentWidth/2;fpimage.y = display.contentHeight/2 -55
 		--fpimage:addEventListener( "touch", onTouch )
@@ -161,15 +171,16 @@ function scene:create( event )
 		videoButton.x = display.contentWidth/2; videoButton.y = 440
 		sceneGroup:insert(videoButton)
 		
-		descButton = widget.newButton
+		picsButton = widget.newButton
 		{
 			defaultFile = "Button_desc.png",
 			overFile = "Button_descPressed.png",
-			onPress = descPress,
+			onPress = picsPress,
 			--onRelease = button1Release,
 		}
-		descButton.x = display.contentWidth/2; descButton.y = 480
-		sceneGroup:insert(descButton)
+		picsButton.x = display.contentWidth/2; picsButton.y = 480
+		sceneGroup:insert(picsButton)
+
 	
 	sceneGroup.x = 0
 	sceneGroup.y = top + display.screenOriginY
